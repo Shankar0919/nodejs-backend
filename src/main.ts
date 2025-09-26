@@ -11,20 +11,20 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('NodeJS Backend API')
-    .setDescription('Swagger OpenAPI docs for nodejs-backend')
+    .setDescription('Swagger OpenAPI documentation for nodejs-backend')
     .setVersion('1.0.0')
     .addTag('API')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
+  SwaggerModule.setup('api-docs', app, document);
 
   await app.listen(3000, '0.0.0.0');
-  console.log('��� nodejs-backend running at http://localhost:3000');
-  console.log('��� Swagger docs at http://localhost:3000/docs');
+  console.log(`Application is running on: http://localhost:3000`);
+  console.log(`Swagger docs available at: http://localhost:3000/api-docs`);
 }
+
 bootstrap().catch((err) => {
   console.error(err);
   process.exit(1);
 });
-

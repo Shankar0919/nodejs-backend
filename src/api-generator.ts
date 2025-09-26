@@ -29,7 +29,7 @@ export async function generateSpec() {
   process.exit(0);
 }
 
-// keep auto-run for CLI usage
+// Auto-run if executed directly
 if (require.main === module) {
   generateSpec().catch((err) => {
     console.error(err);
