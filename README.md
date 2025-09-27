@@ -37,7 +37,7 @@ npx nx serve nodejs-backend --configuration=local
 The app will start at:  
 👉 `http://localhost:3000`  
 Swagger UI available at:  
-👉 `http://localhost:3000/api-docs`
+👉 `http://localhost:3000/docs`
 
 ---
 
@@ -95,7 +95,7 @@ npx nx serve nodejs-backend
 
 Runs the app at `http://localhost:3000`.
 
-Swagger UI → `http://localhost:3000/api-docs`
+Swagger UI → `http://localhost:3000/docs`
 
 ---
 

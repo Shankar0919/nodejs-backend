@@ -1,38 +1,28 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { writeFileSync } from 'fs';
-import { resolve } from 'path';
-import yaml from 'yaml';
+import { stringify } from 'yaml';
+import { FastifyAdapter } from '@nestjs/platform-fastify'; // ✅ use fastify
 
-export async function generateSpec() {
-  const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
-    new FastifyAdapter(),
-  );
+async function generateSpec() {
+  // ✅ explicitly use Fastify instead of default Express
+  const app = await NestFactory.create(AppModule, new FastifyAdapter(), { logger: false });
 
   const config = new DocumentBuilder()
-    .setTitle('NodeJS Backend API')
-    .setDescription('Swagger OpenAPI documentation for nodejs-backend')
-    .setVersion('1.0.0')
-    .addTag('API')
+    .setTitle('Node JS Backend API')
+    .setDescription('API for managing users and healthcheck')
+    .setVersion('1.0')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  const yamlSpec = yaml.stringify(document);
 
-  const outputPath = resolve(process.cwd(), 'collections/api-spec.yaml');
-  writeFileSync(outputPath, yamlSpec);
+  const yamlSpec = stringify(document);
+  writeFileSync('openapi.yaml', yamlSpec, { encoding: 'utf8' });
 
-  console.log(`✅ OpenAPI spec written to ${outputPath}`);
-  process.exit(0);
+  await app.close();
+
+  console.log('✅ OpenAPI spec written to openapi.yaml');
 }
 
-// Auto-run if executed directly
-if (require.main === module) {
-  generateSpec().catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
-}
+generateSpec();

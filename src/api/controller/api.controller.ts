@@ -1,26 +1,13 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { ApiTags, ApiHeader } from '@nestjs/swagger';
-import { ApiService } from '../service/api.service';
+import { Controller, Get } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
-@ApiTags('API')
-@Controller('api')
+@ApiTags('healthcheck')
+@Controller()
 export class ApiController {
-  constructor(private readonly service: ApiService) {}
-
-  @Get()
-  @ApiHeader({ name: 'x-request-id', description: 'Request ID header' })
-  getResponse() {
-    return this.service.getResponse();
-  }
-
-  @Get(':id')
-  getById(@Param('id') id: string) {
-    return this.service.getById(id);
-  }
-
-  @Get('user')
-  @ApiTags('User')
-  getUser() {
-    return this.service.getUser();
+  @Get('healthcheck')
+  @ApiOperation({ summary: 'Check API health' })
+  @ApiResponse({ status: 200, description: 'Service is healthy' })
+  healthcheck() {
+    return { status: 'ok' };
   }
 }

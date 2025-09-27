@@ -10,11 +10,13 @@ export default {
   coverageDirectory: './coverage',
   collectCoverage: true,
   collectCoverageFrom: [
-    "src/**/*.ts",
-    "!src/main.ts",
-    "!src/app.module.ts",
-    "!src/api-generator.ts",
-    "!**/node_modules/**"
+    'src/**/*.ts',
+    '!src/main.ts',
+    '!src/app.module.ts',
+    '!src/api-generator.ts',
+    '!src/dtos/**',
+    '!src/interfaces/**',
+    '!**/node_modules/**'
   ],
   coverageReporters: ['text', 'lcov', 'json'],
   coverageThreshold: {
@@ -22,7 +24,10 @@ export default {
       branches: 80,
       functions: 80,
       lines: 80,
-      statements: 80
-    }
-  }
+      statements: 80,
+    },
+  },
+  transformIgnorePatterns: [
+    "node_modules/(?!uuid)"
+  ]
 };

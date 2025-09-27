@@ -1,34 +1,22 @@
+import { Test, TestingModule } from '@nestjs/testing';
 import { ApiController } from './api.controller';
-import { ApiService } from '../service/api.service';
 
 describe('ApiController', () => {
   let controller: ApiController;
-  let service: ApiService;
 
-  beforeEach(() => {
-    service = new ApiService();
-    controller = new ApiController(service);
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      controllers: [ApiController],
+    }).compile();
+
+    controller = module.get<ApiController>(ApiController);
   });
 
-  it('should return Hello World from service', () => {
-    expect(controller.getResponse()).toEqual({
-      message: 'Hello World',
-      statusCode: 200,
-    });
+  it('should be defined', () => {
+    expect(controller).toBeDefined();
   });
 
-  it('should return data by ID from service', () => {
-    expect(controller.getById('456')).toEqual({
-      message: 'Data for ID: 456',
-      statusCode: 200,
-    });
-  });
-
-  it('should return a user object from service', () => {
-    expect(controller.getUser()).toEqual({
-      username: 'JohnDoe',
-      role: 'admin',
-      statusCode: 200,
-    });
+  it('should return ok on healthcheck', () => {
+    expect(controller.healthcheck()).toEqual({ status: 'ok' });
   });
 });
