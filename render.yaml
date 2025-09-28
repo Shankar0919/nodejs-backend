@@ -1,0 +1,56 @@
+services:
+  - type: web
+    name: shankar-nodejs-backend-eng
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: |
+      npm install
+      npm run build:eng
+    startCommand: |
+      node dist/main.js
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: development
+      - key: APP_ENV
+        value: eng
+
+  # Testing environment
+  - type: web
+    name: shankar-nodejs-backend-test
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: |
+      npm install
+      npm run build:test
+    startCommand: |
+      node dist/main.js
+    healthCheckPath: /health
+    autoDeploy: false
+    envVars:
+      - key: NODE_ENV
+        value: test
+      - key: APP_ENV
+        value: test
+
+  # Production environment
+  - type: web
+    name: shankar-nodejs-backend-prod
+    runtime: node
+    plan: starter
+    region: singapore
+    buildCommand: |
+      npm install
+      npm run build:prod
+    startCommand: |
+      node dist/main.js
+    healthCheckPath: /health
+    autoDeploy: false
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: APP_ENV
+        value: prod

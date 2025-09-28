@@ -3,13 +3,11 @@ name: CI
 on:
   push:
     branches: ["*"]
-  pull_request:
-    branches: ["*"]
 
 jobs:
-  build-lint-test:
+  lint:
     runs-on: ubuntu-latest
-
+    name: Lint
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -17,19 +15,49 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint
-        run: npx nx lint nodejs-backend
+      - name: Run Lint
+        run: npm run lint
 
-      - name: Build (local)
-        run: npx nx build nodejs-backend --configuration=local
+  build:
+    runs-on: ubuntu-latest
+    name: Build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Test with coverage
-        run: npx nx test nodejs-backend --code-coverage
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Build
+        run: npm run build
+
+  test:
+    runs-on: ubuntu-latest
+    name: Test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Tests with Coverage
+        run: npm run test:coverage
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
