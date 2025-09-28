@@ -1,15 +1,5 @@
 openapi: 3.0.0
 paths:
-  /healthcheck:
-    get:
-      operationId: ApiController_healthcheck
-      parameters: []
-      responses:
-        "200":
-          description: Service is healthy
-      summary: Check API health
-      tags:
-        - healthcheck
   /users:
     get:
       operationId: UsersController_getUsers
@@ -73,12 +63,23 @@ paths:
           description: User deleted successfully
       summary: Delete a user
       tags: *a1
+  /health:
+    get:
+      operationId: HealthController_getHealth
+      parameters: []
+      responses:
+        "200":
+          description: ""
+      tags:
+        - Health
 info:
-  title: User API
-  description: API for managing users and healthcheck
-  version: "1.0"
+  title: NodeJS Backend API
+  description: Swagger OpenAPI documentation for nodejs-backend
+  version: 1.0.0
   contact: {}
-tags: []
+tags:
+  - name: API
+    description: ""
 servers: []
 components:
   schemas:

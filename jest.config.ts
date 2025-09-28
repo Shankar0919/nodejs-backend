@@ -4,21 +4,10 @@ export default {
   preset: 'ts-jest',
   testEnvironment: 'node',
   transform: {
-    '^.+\\.[tj]s$': 'ts-jest',
+    '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: './coverage',
-  collectCoverageFrom: [
-    "src/**/*.ts",
-    "!src/api-generator.ts",
-    "!src/main.ts",
-    "!src/app.module.ts",
-    "!src/dtos/*",
-    "!src/interfaces/*",
-    "!**/node_modules/**",
-    "!src/environments/*"
-  ],
-  coverageReporters: ['text', 'lcov', 'json'],
   coverageThreshold: {
     global: {
       branches: 80,
@@ -26,5 +15,17 @@ export default {
       lines: 80,
       statements: 80
     }
-  }
+  }, 
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/dist/',
+    '<rootDir>/src/environments/*',
+    '<rootDir>/src/main.ts',
+    '<rootDir>/src/app.module.ts',
+    '<rootDir>/src/api-generator.ts',
+    '<rootDir>/src/dtos/*',
+    '<rootDir>/src/interfaces/*'
+    /*    
+    */
+  ]
 };

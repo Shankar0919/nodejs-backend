@@ -2,9 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { writeFileSync } from 'fs';
+import { mkdirSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
-import yaml from 'yaml';
+import { stringify } from 'yaml';
 
 export async function generateSpec() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -20,16 +20,24 @@ export async function generateSpec() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  const yamlSpec = yaml.stringify(document);
 
-  const outputPath = resolve(process.cwd(), 'collections/api-spec.yaml');
-  writeFileSync(outputPath, yamlSpec);
+  const collectionsDir = resolve(process.cwd(), 'collections');
+  mkdirSync(collectionsDir, { recursive: true });
 
-  console.log(`✅ OpenAPI spec written to ${outputPath}`);
+  // Truth file for Swagger + Bruno
+  const yamlPath = resolve(collectionsDir, 'api-spec.yaml');
+  writeFileSync(yamlPath, stringify(document));
+
+  // JSON file for Postman
+  const postmanPath = resolve(collectionsDir, 'postman_collection.json');
+  writeFileSync(postmanPath, JSON.stringify(document, null, 2));
+
+  console.log(`✅ OpenAPI specs generated: - ${yamlPath}  (Swagger/Bruno) - ${postmanPath}  (Postman)`);
+
+  await app.close();
   process.exit(0);
 }
 
-// Auto-run if executed directly
 if (require.main === module) {
   generateSpec().catch((err) => {
     console.error(err);
