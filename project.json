@@ -7,32 +7,68 @@
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "local",
+      "defaultConfiguration": "development",
       "options": {
         "outputPath": "dist",
         "main": "src/main.ts",
         "tsConfig": "tsconfig.build.json"
       },
       "configurations": {
-        "local": {
-          "optimization": false
+        "development": {
+          "optimization": false,
+          "fileReplacements": [
+            {
+              "replace": "src/environments/environment.development.ts",
+              "with": "src/environments/environment.development.ts"
+            }
+          ]
+        },
+        "eng": {
+          "optimization": false,
+          "fileReplacements": [
+            {
+              "replace": "src/environments/environment.development.ts",
+              "with": "src/environments/environment.eng.ts"
+            }
+          ]
+        },
+        "test": {
+          "optimization": false,
+          "fileReplacements": [
+            {
+              "replace": "src/environments/environment.development.ts",
+              "with": "src/environments/environment.test.ts"
+            }
+          ]
         },
         "production": {
-          "optimization": true
+          "optimization": true,
+          "fileReplacements": [
+            {
+              "replace": "src/environments/environment.development.ts",
+              "with": "src/environments/environment.prod.ts"
+            }
+          ]
         }
       }
     },
     "serve": {
       "executor": "@nx/js:node",
-      "defaultConfiguration": "local",
+      "defaultConfiguration": "development",
       "options": {
         "buildTarget": "nodejs-backend:build",
         "runtimeArgs": [],
         "inspect": false
       },
       "configurations": {
-        "local": {
-          "buildTarget": "nodejs-backend:build:local"
+        "development": {
+          "buildTarget": "nodejs-backend:build:development"
+        },
+        "eng": {
+          "buildTarget": "nodejs-backend:build:eng"
+        },
+        "test": {
+          "buildTarget": "nodejs-backend:build:test"
         },
         "production": {
           "buildTarget": "nodejs-backend:build:production"

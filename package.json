@@ -4,28 +4,30 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/main.ts",
-    "start:dev": "ts-node --watch src/main.ts",
-    "build": "tsc -p tsconfig.build.json",
+    "start": "nx serve nodejs-backend --configuration=development",
+    "start:eng": "nx serve nodejs-backend --configuration=eng",
+    "start:test": "nx serve nodejs-backend --configuration=test",
+    "start:prod": "nx serve nodejs-backend --configuration=production",
+    "build": "nx build nodejs-backend --configuration=development",
+    "build:eng": "nx build nodejs-backend --configuration=eng",
+    "build:test": "nx build nodejs-backend --configuration=test",
+    "build:prod": "nx build nodejs-backend --configuration=production",
     "document:write": "ts-node src/api-generator.ts",
-    "test": "jest"
+    "lint": "nx lint nodejs-backend",
+    "test": "nx test nodejs-backend"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@fastify/swagger": "^9.5.2",
-    "@fastify/swagger-ui": "^5.2.3",
     "@nestjs/common": "^11.1.6",
     "@nestjs/core": "^11.1.6",
     "@nestjs/platform-fastify": "^11.1.6",
     "@nestjs/swagger": "^11.2.0",
-    "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
     "fastify": "^5.6.1",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.2",
-    "uuid": "^13.0.0"
+    "rxjs": "^7.8.2"
   },
   "devDependencies": {
     "@nestjs/testing": "^11.1.6",
@@ -44,6 +46,7 @@
     "ts-jest": "^29.4.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2",
+    "uuid": "^8.3.2",
     "yaml": "^2.8.1"
   },
   "nx": {}

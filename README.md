@@ -1,3 +1,7 @@
+## Table of Contents
+
+- [Deployment URLs](#deployment-urls)
+
 # NodeJS Backend (NestJS + Fastify + Nx)
 
 This project is a **NestJS + Fastify** backend application, managed with **Nx**, with Swagger documentation, unit test coverage enforcement, and GitHub Actions CI.
@@ -37,7 +41,7 @@ npx nx serve nodejs-backend --configuration=local
 The app will start at:  
 👉 `http://localhost:3000`  
 Swagger UI available at:  
-👉 `http://localhost:3000/docs`
+👉 `http://localhost:3000/api-docs`
 
 ---
 
@@ -95,7 +99,7 @@ npx nx serve nodejs-backend
 
 Runs the app at `http://localhost:3000`.
 
-Swagger UI → `http://localhost:3000/docs`
+Swagger UI → `http://localhost:3000/api-docs`
 
 ---
 
@@ -197,3 +201,12 @@ Dev:
 ## 🔮 Next Steps
 
 - Add more controllers/services in `src/api/`
+
+
+## Deployment URLs
+
+| Environment | URL |
+|-------------|-----|
+| Eng         | https://nodejs-backend-eng.onrender.com |
+| Test        | https://nodejs-backend-test.onrender.com |
+| Prod        | https://nodejs-backend-prod.onrender.com |
