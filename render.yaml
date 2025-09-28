@@ -8,12 +8,14 @@ services:
       npm install
       npm run build:eng
     startCommand: |
-      node dist/main.js
+      node dist/src/main.js
     healthCheckPath: /health
     autoDeploy: true
     envVars:
+      - key: NODE_VERSION
+        value: 20
       - key: NODE_ENV
-        value: development
+        value: eng
       - key: APP_ENV
         value: eng
 
@@ -27,10 +29,12 @@ services:
       npm install
       npm run build:test
     startCommand: |
-      node dist/main.js
+      node dist/src/main.js
     healthCheckPath: /health
     autoDeploy: false
     envVars:
+      - key: NODE_VERSION
+        value: 20
       - key: NODE_ENV
         value: test
       - key: APP_ENV
@@ -46,11 +50,13 @@ services:
       npm install
       npm run build:prod
     startCommand: |
-      node dist/main.js
+      node dist/src/main.js
     healthCheckPath: /health
     autoDeploy: false
     envVars:
+      - key: NODE_VERSION
+        value: 20
       - key: NODE_ENV
-        value: production
+        value: prod
       - key: APP_ENV
         value: prod
