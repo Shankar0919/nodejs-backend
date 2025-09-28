@@ -2,7 +2,7 @@ services:
   - type: web
     name: shankar-nodejs-backend-eng
     runtime: node
-    plan: starter
+    plan: free
     region: singapore
     buildCommand: |
       npm install
@@ -21,7 +21,7 @@ services:
   - type: web
     name: shankar-nodejs-backend-test
     runtime: node
-    plan: starter
+    plan: free
     region: singapore
     buildCommand: |
       npm install
@@ -40,7 +40,7 @@ services:
   - type: web
     name: shankar-nodejs-backend-prod
     runtime: node
-    plan: starter
+    plan: free
     region: singapore
     buildCommand: |
       npm install
