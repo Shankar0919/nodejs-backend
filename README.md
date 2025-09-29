@@ -12,19 +12,21 @@ This project provides modular architecture, validation, logging, and OpenAPI doc
 
 ## 📑 Table of Contents
 
-- [Overview](-#overview)
-- [Tech Stack](-#tech-stack)
-- [Getting Started](-#getting-started)
-  - [Prerequisites](-#prerequisites)
-  - [Installation](-#installation)
-  - [Running the App](-#running-the-app)
-- [Scripts](-#scripts)
-- [Testing](-#testing)
-- [API Documentation](-#api-documentation)
-- [Deployment](-#deployment)
-- [Environments](-#environments)
-- [Contributing](-#contributing)
-- [License](-#license)
+- [Overview](#overview)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running the App](#running-the-app)
+- [Scripts](#scripts)
+- [Testing](#testing)
+- [API Documentation](#api-documentation)
+- [Nx Intro](#why-nx)
+- [Environments](#render-deployment)
+- [Render Deployment Workflow](#render-deployment-workflow)
+  - [Steps to Deploy](#steps-to-deploy)
+- [Architecture](#architecture)
+- [Contributing](#contributing)
 
 ---
 
@@ -78,19 +80,11 @@ Start the application in **development**:
 npm run start
 ```
 
-Or run with specific environments:
-
-```bash
-npm run start:eng
-npm run start:test
-npm run start:prod
-```
-
 ---
 
 ## 📜 Scripts
 
-| Command                | Description                                      |
+| Command                 | Description                                      |
 |-------------------------|--------------------------------------------------|
 | `npm run start`         | Start in development mode                        |
 | `npm run start:eng`     | Start in Eng environment                         |
@@ -120,6 +114,12 @@ Run with coverage:
 npm run test:coverage
 ```
 
+Run & Watch unit tests:
+
+```bash
+npm run test:watch
+```
+
 ---
 
 ## 📖 API Documentation
@@ -131,24 +131,51 @@ npm run test:coverage
 - Swagger UI is available when the app is running at:  
 
   ```url
-  http://localhost:3000/api-docs
+  http://localhost:3000/swagger
   ```
 
 ---
 
-## 🌍 Deployment
+## Why Nx?
 
-This project is deployed on [Render](https://render.com) with three environments.
-
-### Environments
-
-| Environment | URL                                                                 |
-|-------------|---------------------------------------------------------------------|
-| Eng         | <https://shankar-nodejs-backend-eng.onrender.com/>                    |
-| Test        | <https://shankar-nodejs-backend-test.onrender.com/>                   |
-| Prod        | <https://shankar-nodejs-backend-prod.onrender.com/>                   |
+- Consistent task running across environments
+- Smart caching (local + Nx Cloud) → faster CI/CD
+- Scales well for monorepos with multiple Node.js apps
 
 ---
+
+## Render Deployment
+
+This application is deployed on Render with the following environments:
+
+| Environment | URL                                        | APP_ENV    |
+| ----------- | ------------------------------------------ | ---------- |
+| Production  | <https://nodejs-backend-prod.onrender.com> | production |
+| Engineering | <https://nodejs-backend-eng.onrender.com>  | eng        |
+
+> Each service runs the same codebase with different `APP_ENV` values.
+
+---
+
+## Render Deployment Workflow
+
+This project is deployed to **Render** using:
+
+- **render.yaml** → Defines multiple Render services (prod, eng) with their own `APP_ENV`
+- **Environment Variables** → Secrets (`DATABASE_URL`, `JWT_SECRET`, etc.) must be set in Render’s dashboard or in `render.yaml` (`sync: false`)
+
+### Steps to deploy
+
+1. Commit and push changes to GitHub branch.
+2. Render detects the `render.yaml` blueprint from master branch and provisions services.
+3. Each service runs with its own environment (`APP_ENV=production`, `APP_ENV=eng`)
+4. Access environments via their respective URLs.
+
+---
+
+## Architecture
+
+![Architecture Diagram](./architecture.png)
 
 ## 🤝 Contributing
 

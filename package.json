@@ -6,11 +6,9 @@
   "scripts": {
     "start": "nx serve nodejs-backend --configuration=development",
     "start:eng": "nx serve nodejs-backend --configuration=eng",
-    "start:test": "nx serve nodejs-backend --configuration=test",
     "start:prod": "nx serve nodejs-backend --configuration=production",
     "build": "nx build nodejs-backend --configuration=development",
     "build:eng": "nx build nodejs-backend --configuration=eng",
-    "build:test": "nx build nodejs-backend --configuration=test",
     "build:prod": "nx build nodejs-backend --configuration=production",
     "document:write": "ts-node src/api-generator.ts",
     "lint": "nx lint nodejs-backend",

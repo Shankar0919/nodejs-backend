@@ -19,27 +19,6 @@ services:
       - key: APP_ENV
         value: eng
 
-  # Testing environment
-  - type: web
-    name: shankar-nodejs-backend-test
-    runtime: node
-    plan: free
-    region: singapore
-    buildCommand: |
-      npm install
-      npm run build:test
-    startCommand: |
-      node dist/src/main.js
-    healthCheckPath: /health
-    autoDeploy: false
-    envVars:
-      - key: NODE_VERSION
-        value: 20
-      - key: NODE_ENV
-        value: test
-      - key: APP_ENV
-        value: test
-
   # Production environment
   - type: web
     name: shankar-nodejs-backend-prod
