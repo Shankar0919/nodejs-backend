@@ -33,7 +33,7 @@ This project provides modular architecture, validation, logging, and OpenAPI doc
 ## 📌 Overview
 
 This repository contains the **NodeJS backend** built using **NestJS + Nx + Fastify**.  
-It is structured to support multiple environments (Eng, Test, Prod) and includes built-in support for:
+It is structured to support multiple environments (Eng, Prod) and includes built-in support for:
 
 - DTO validation with `class-validator`
 - Logging service
@@ -88,10 +88,8 @@ npm run start
 |-------------------------|--------------------------------------------------|
 | `npm run start`         | Start in development mode                        |
 | `npm run start:eng`     | Start in Eng environment                         |
-| `npm run start:test`    | Start in Test environment                        |
 | `npm run start:prod`    | Start in Production environment                  |
 | `npm run build:eng`     | Build for Eng                                    |
-| `npm run build:test`    | Build for Test                                   |
 | `npm run build:prod`    | Build for Prod                                   |
 | `npm run lint`          | Run ESLint checks                                |
 | `npm run test`          | Run unit tests                                   |
