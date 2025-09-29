@@ -19,7 +19,7 @@
           "fileReplacements": [
             {
               "replace": "src/environments/environment.development.ts",
-              "with": "src/environments/environment.development.ts"
+              "with": "src/environments/environment.eng.ts"
             }
           ]
         },
@@ -29,15 +29,6 @@
             {
               "replace": "src/environments/environment.development.ts",
               "with": "src/environments/environment.eng.ts"
-            }
-          ]
-        },
-        "test": {
-          "optimization": false,
-          "fileReplacements": [
-            {
-              "replace": "src/environments/environment.development.ts",
-              "with": "src/environments/environment.test.ts"
             }
           ]
         },
@@ -66,9 +57,6 @@
         },
         "eng": {
           "buildTarget": "nodejs-backend:build:eng"
-        },
-        "test": {
-          "buildTarget": "nodejs-backend:build:test"
         },
         "production": {
           "buildTarget": "nodejs-backend:build:production"
